@@ -3,6 +3,6 @@ spring:
   cloud:
     gcp:
       project-id: projecttest-325212
-      topic-name: projects/projecttest-325212/topics/test-topic
+      topic-name: projects/projecttest-325212/topics/test-topic  # replace it your topic
       credentials:
-        location: classpath:projecttest-325212-33870e343e5e.json   # https://lemontia.tistory.com/961
+        location: classpath:projecttest-325212-33870e343e5e.json # replace it your key file  # https://lemontia.tistory.com/961

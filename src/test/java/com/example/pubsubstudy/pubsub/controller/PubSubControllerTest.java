@@ -1,43 +1,33 @@
 package com.example.pubsubstudy.pubsub.controller;
 
 import com.example.pubsubstudy.PubsubStudyApplication;
-import com.example.pubsubstudy.pubsub.dto.MessageContent;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = {PubsubStudyApplication.class})
+@AutoConfigureMockMvc
 class PubSubControllerTest {
 
-    @LocalServerPort
-    private int port;
-
     @Autowired
-    private TestRestTemplate testRestTemplate;
-
-    private String appUrl;
-
-    @BeforeEach
-    public void initializeAppUrl() {
-        this.appUrl = "http://localhost:" + this.port;
-    }
+    private MockMvc mockMvc;
 
     @Test
-    public void sendMessage() {
-        String url = UriComponentsBuilder
-            .fromHttpUrl(this.appUrl + "/api/v1/sendMessage")
-            .toUriString();
-
-        MessageContent content = new MessageContent("Good Title", "Important Body3");
-        ResponseEntity<String> res = this.testRestTemplate.postForEntity(url, content, String.class);
-
-        System.out.println(res.getBody());
-        System.out.println(res.getStatusCodeValue());
+    public void sendMessageTest() throws Exception {
+        mockMvc.perform(
+                post("/api/v1/sendMessage")
+                    .content("{\"title\":\"Good Title!!\",\"body\":\"Important Message!!\"}")
+                    .contentType(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isOk())
+            .andDo(print());
     }
 }

@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    gcp:
+      project-id: projecttest-325212
+      topic-name: projects/projecttest-325212/topics/test-topic
+      credentials:
+        location: classpath:pubsub-key.json   # https://lemontia.tistory.com/961

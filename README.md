@@ -1,8 +1,14 @@
+# Spring Boot와 GCP Pub/Sub 연결하기
+
+자세한 내용은 [블로그](https://mycloudy.tistory.com/40) 에서 확인할 수 있습니다
+
 # Service Account Key 만들기
+
 1. [Service Account Console](https://console.cloud.google.com/iam-admin/serviceaccounts) 에서 계정 Service Account 만들기
    1. `pubsub-sa` 로 만들었습니다. gcloud 명령어에 같은 이름을 적어주어야 합니다
 
-2. [IAM service account](https://cloud.google.com/iam/docs/creating-managing-service-account-keys?hl=ko#iam-service-account-keys-create-gcloud) 콘솔에서 .json 키 만들기
+2. [IAM service account](https://cloud.google.com/iam/docs/creating-managing-service-account-keys?hl=ko#iam-service-account-keys-create-gcloud)
+   콘솔에서 .json 키 만들기
     ```shell
     gcloud iam service-accounts keys create pubsub-sa-file.json \
     --iam-account=pubsub-sa@projecttest-325212.iam.gserviceaccount.com
